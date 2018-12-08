@@ -1,0 +1,30 @@
+from flask import Flask, url_for
+from redis import Redis, RedisError
+import connexion
+import os
+import socket
+
+# Connect to Redis
+redis = Redis(host="redis", db=0, socket_connect_timeout=2, socket_timeout=2)
+
+# Create the application instance
+app = connexion.FlaskApp(__name__, specification_dir='openapi/')
+
+# Read the swagger.yml file to configure the endpoints
+app.add_api('swagger.yml')
+
+@app.route("/")
+def hello():
+    try:
+        visits = redis.incr("counter")
+    except RedisError:
+        visits = "<i>cannot connect to Redis, counter disabled</i>"
+
+    html = "<h3>Hello {name}!</h3>" \
+           "<b>Hostname:</b> {hostname}<br/>" \
+           "<b>Visits:</b> {visits}"
+
+    return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname(), visits=visits)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8080)

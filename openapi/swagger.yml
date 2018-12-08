@@ -1,0 +1,22 @@
+swagger: '2.0'
+info:
+  description: My first API for trying out connexion
+  title: Hello API
+  version: "0.1"
+
+basePath: "/api"
+
+paths:
+  /greeting:
+    get:
+      operationId: api.say_hello
+      summary: Returns a greeting.
+      responses:
+        200:
+          description: Successful response.
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message greeting
