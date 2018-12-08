@@ -6,6 +6,9 @@ Notes
 - this python app is a rip-off from the Docker Get-Started app. 
 - modifications include the additional use of connexion
 - the Dockerfile is modified to use an alpine image, and the pip requirements are fetched before the app is copied to the image, so as to enjoy some caching goodness
+Inspiration from
+- [Building and Documenting Python REST APIs With Flask and Connexion](https://realpython.com/flask-connexion-rest-api/)
+- [Crafting Effective Microservices in Python](https://jobs.zalando.com/tech/blog/crafting-effective-microservices-in-python/
 
 Build in docker:
 ```
